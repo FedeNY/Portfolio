@@ -2,181 +2,211 @@ import React, { useState } from "react";
 import { styled } from "styled-components";
 import CardSkills from "./CardSkills";
 
-const SkillsStyle = styled.section`
-  width: 60vw;
-  background-color: red;
+const SkillsContainer = styled.section`
+  height: auto;
+  width: 50%;
   display: flex;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 80px 0px 0px 0px;
+  padding: 20px 0px 20px 0px;
   flex-wrap: wrap-reverse;
+
   article {
-    flex: 1 1 50%;
+    flex: 1 1 60%;
     display: flex;
     flex-wrap: wrap;
 
-    background-color: green;
-
-    div {
-      flex: 1 0 50%;
-      padding: 0.2rem;
+    > div {
+      flex: 1 1 50%;
       display: flex;
       flex-direction: column;
 
       .container {
         padding: 2rem;
         display: flex;
-        flex-direction: row;
         flex-wrap: wrap;
-        gap: 10px;
         justify-content: start;
+        gap: 10px;
+      }
+
+      div {flex: 1 1 50%; 
+      
+        :hover { 
+          background-color: #ececec;
+
+        }
+      
       }
     }
   }
 
   .displayStyle {
-    flex: 1 1 20%;
-    background-color: grey;
+    height: 50%;
+    flex: 1 1 30%;
     display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+
+    div {
+      gap: 20px;
+      height: 100%;
+      width: 80%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      align-items: center;
+    }
+  }
+
+  @media (max-width: 992px) {
+    width: 100%;
+  
+    h4 {
+      text-align: center;
+    }
+    .displayStyle {
+ 
+      flex: 1 1 100%;
+      margin-bottom: 100px;
+    }
   }
 `;
 
-export default function Skills() {
-  const arr = [
-    {
-      name: "HTML5",
-      description:
-        "Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.",
-      type: "Basica",
-      icon: "/skills_icons/html.svg",
-    },
-    {
-      name: "CSS3",
-      description:
-        "Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.",
-      type: "Basica",
-      icon: "/skills_icons/css.svg",
-    },
-    {
-      name: "Sass",
-      description:
-        "Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.",
-      type: "Basica",
-      icon: "/skills_icons/sass.svg",
-    },
-    {
-      name: "JavaScript",
-      description:
-        "Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.",
-      type: "Basica",
-      icon: "/skills_icons/css.svg",
-    },
-    {
-      name: "Bootstrap",
-      description:
-        "Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.",
-      type: "Framework",
-      icon: "/skills_icons/bootstrap.svg",
-    },
-    {
-      name: "React",
-      description:
-        "Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.",
-      type: "Framework",
-      icon: "/skills_icons/react.svg",
-    },
+const skillsData = [
+  {
+    name: "HTML5",
+    description:
+      "Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.",
+    type: "Basica",
+    icon: "/skills_icons/html.svg",
+  },
+  {
+    name: "CSS3",
+    description:
+      "Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.",
+    type: "Basica",
+    icon: "/skills_icons/css.svg",
+  },
+  {
+    name: "Sass",
+    description:
+      "Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.",
+    type: "Basica",
+    icon: "/skills_icons/sass.svg",
+  },
+  {
+    name: "JavaScript",
+    description:
+      "Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.",
+    type: "Basica",
+    icon: "/skills_icons/css.svg",
+  },
+  {
+    name: "Bootstrap",
+    description:
+      "Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.",
+    type: "Framework",
+    icon: "/skills_icons/bootstrap.svg",
+  },
+  {
+    name: "React",
+    description:
+      "Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.",
+    type: "Framework",
+    icon: "/skills_icons/react.svg",
+  },
 
-    {
-      name: "Figma",
-      description:
-        "Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.",
-      type: "Desing",
-      icon: "/skills_icons/figma.svg",
-    },
-    {
-      name: "Photoshop",
-      description:
-        "Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.",
-      type: "Desing",
-      icon: "/skills_icons/photoshop.svg",
-    },
-  ];
+  {
+    name: "Figma",
+    description:
+      "Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.",
+    type: "Desing",
+    icon: "/skills_icons/figma.svg",
+  },
+  {
+    name: "Photoshop",
+    description:
+      "Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500.",
+    type: "Desing",
+    icon: "/skills_icons/photoshop.svg",
+  },
+];
 
-  const filtro = (word) => {
-    const result = arr.filter((e) => e.type === word);
-
-    return result;
+const Skills = () => {
+  const filterSkillsByType = (type) => {
+    return skillsData.filter((skill) => skill.type === type);
   };
 
-  const basica = filtro("Basica");
-  const framework = filtro("Framework");
-  const desing = filtro("Desing");
+  const basicSkills = filterSkillsByType("Basica");
+  const frameworkSkills = filterSkillsByType("Framework");
+  const designSkills = filterSkillsByType("Desing");
 
-  const [skills, skillSet] = useState("HTML5");
+  const [selectedSkill, setSelectedSkill] = useState("HTML5");
 
-  const change = (name) => {
-    skillSet(name);
+  const handleChangeSkill = (name) => {
+    setSelectedSkill(name);
   };
 
   return (
-    <SkillsStyle>
+    <SkillsContainer>
       <article>
         <div>
-          <h4>Basicas</h4>
-
+          <h4>Diseño</h4>
           <div className="container">
-            {basica.map((e, i) => (
+            {designSkills.map((skill, index) => (
               <CardSkills
-                key={i}
-                name={e.name}
-                icon={e.icon}
-                onClick={() => change(e.name)}
+                key={index}
+                name={skill.name}
+                icon={skill.icon}
+                onClick={() => handleChangeSkill(skill.name)}
               />
             ))}
           </div>
         </div>
         <div>
-          <h4>Diseño</h4>
+          <h4>Framework</h4>
           <div className="container">
-            {desing.map((e, i) => (
+            {frameworkSkills.map((skill, index) => (
               <CardSkills
-                key={i}
-                name={e.name}
-                icon={e.icon}
-                onClick={() => change(e.name)}
+                key={index}
+                name={skill.name}
+                icon={skill.icon}
+                onClick={() => handleChangeSkill(skill.name)}
               />
             ))}
-          </div>{" "}
+          </div>
         </div>
         <div>
-          <h4>Framework</h4>
-
+          <h4>Basicas</h4>
           <div className="container">
-            {framework.map((e, i) => (
+            {basicSkills.map((skill, index) => (
               <CardSkills
-                key={i}
-                name={e.name}
-                icon={e.icon}
-                onClick={() => change(e.name)}
+                key={index}
+                name={skill.name}
+                icon={skill.icon}
+                onClick={() => handleChangeSkill(skill.name)}
               />
             ))}
           </div>
         </div>
       </article>
       <div className="displayStyle">
-        {arr.map((e, i) =>
-          e.name === skills ? (
-            <div key={i}>
-              <img src={e.icon} height={70} alt="" />
-              <h2>{e.name}</h2>
-              <p>{e.description}</p>
-            </div>
-          ) : null
-        )}
+        <div>
+          {skillsData.map((skill, index) =>
+            skill.name === selectedSkill ? (
+              <div key={index}>
+                <img src={skill.icon} height={70} alt={skill.name} />
+                <h2>{skill.name}</h2>
+                <p>{skill.description}</p>
+              </div>
+            ) : null
+          )}
+        </div>
       </div>
-    </SkillsStyle>
+    </SkillsContainer>
   );
-}
+};
+
+export default Skills;
+

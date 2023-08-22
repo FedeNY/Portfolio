@@ -1,28 +1,26 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { styled } from "styled-components";
 import Boton from "../components/Boton";
 import Skills from "../components/Skills";
-
-const Principal = styled.main `
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-
-`
+import Contact from "../components/Contact";
+import { Link } from "react-router-dom";
+const Principal = styled.main`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 
 const IntroStyle = styled.section`
-  height: 100vh;
-  background-color: #ffffff;
-  width: 100%;
+  height: auto;
+  width: 50%;
   display: flex;
-  padding: 40px;
-  justify-content: center;
+  padding: 40px 0px;
+  justify-content: start;
   align-items: center;
   color: #303030;
   position: relative;
 
   article {
-
     width: 1000px;
     height: auto;
     display: flex;
@@ -30,11 +28,9 @@ const IntroStyle = styled.section`
     gap: 27px;
 
     h1 {
-      font-size: 6rem;
     }
 
     h3 {
-      font-size: 3rem;
       color: #494949;
       .frontColor {
         color: #a981c2;
@@ -44,10 +40,9 @@ const IntroStyle = styled.section`
         color: #d3c08f;
       }
     }
-    p {color:#494949;
-      font-weight:600;
-      font-size: 1.4rem;
-      
+    p {
+      color: #494949;
+      font-weight: 600;
     }
 
     div {
@@ -115,13 +110,44 @@ const IntroStyle = styled.section`
       transform: translateY(0%);
     }
   }
-`;
 
-const SkillsStyle = styled.section`
-  height: 100vh;
+  @media (max-width: 992px) {
+    justify-content: center;
+    text-align: center;
+    width: 80%;
+
+    p {
+      text-align: start;
+    }
+
+    div {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+  }
 `;
 
 export default function main() {
+  const [date, setDate] = useState([]);
+  useEffect(() => {
+    const getFetch = async () => {
+      try {
+        const res = await fetch("/src/json/skills.json");
+        const result = await res.json();
+        setDate(result.personas);
+      } catch (error) {
+        console.error("se ha producido un error");
+      }
+    };
+
+    getFetch();
+  }, []);
+
+  const sendID = (id) => {
+    localStorage.setItem("id", id);
+  };
+
   return (
     <Principal>
       <IntroStyle>
@@ -139,8 +165,19 @@ export default function main() {
             textos y los mezcló de tal manera que logró hacer
           </p>{" "}
           <div>
-            <Boton text={"Linkedin"} bgcolor={"#a981c2"} color={"#ffffff"} icon={"/iconLinkedin.svg"} />
-            <Boton text={"Curriculum"} bgcolor={"#ffffff"} color={"#494949"} icon={"/iconCV.svg"} />
+            <Boton
+              text={"Linkedin"}
+              bgcolor={"#a981c2"}
+              color={"#ffffff"}
+              icon={"/iconLinkedin.svg"}
+              link={"https://www.linkedin.com/in/federico-massolo-55a13b238/"}
+            />
+            <Boton
+              text={"Curriculum"}
+              bgcolor={"#ffffff"}
+              color={"#494949"}
+              icon={"/iconCV.svg"}
+            />
           </div>
         </article>
         {/* <svg
@@ -174,10 +211,18 @@ export default function main() {
           />
         </svg> */}
       </IntroStyle>
-
-
-
+     
       <Skills />
+
+      <Contact /> 
+
+      <div>
+        {date.map((e, i) => (
+          <Link to={"/detail"} onClick={() => sendID(e.name)} key={i}>
+            {e.name}
+          </Link>
+        ))}
+      </div>
     </Principal>
   );
 }

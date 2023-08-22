@@ -6,28 +6,24 @@ const CardStyle = styled.button`
   display: flex;
   flex-direction: column;
   color: #3d3d3d;
-  border:none;
+  border: none;
   align-items: center;
-  background-color:transparent;
   cursor: pointer;
-  padding: 8px 10px;
-
-    p {
-        margin: 7px 0px 0px 0px;
-    }
+    padding:10px;
+  flex: 1 1 auto;
+  background-color:transparent;
+  border-radius:8px;
+  p {
+    margin: 4px 0px 0px 0px;
+  }
 
   img {
     height: 40px;
-  }
-
-  :hover {
-    color: black;
+    width: 40px;
   }
 `;
 
 export default function CardSkills({ name, icon, onClick }) {
-  console.log(icon);
-
   return (
     <CardStyle onClick={onClick}>
       <img src={icon} alt={`icon_${name}`} />
